@@ -83,8 +83,7 @@ $config = [
             'rules' => [
                 'shop/<categoryid:\d+><page:\d+>' => 'shop/index',
                 'shop/<categoryid:\d+>' => 'shop/index',
-               
-               
+              
                 
             ],
         ],

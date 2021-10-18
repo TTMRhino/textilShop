@@ -33,6 +33,7 @@ class AppAsset extends AssetBundle
         'css/default.css',
         'css/style.css',
         'css/responsive.css',
+        'css/myStyle.css'
     ];
     public $js = [
         'js/vendor/modernizr-2.8.3.min.js',

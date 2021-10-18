@@ -49,8 +49,11 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'class' => 'hr\captcha\CaptchaAction',
+                'operators' => ['+','-','*'],
+                'maxValue' => 10,
+                'fontSize' => 18,
+                //'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }

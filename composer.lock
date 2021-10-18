@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9cd87f007dcd9d8cf647fb718b0384f8",
+    "content-hash": "f8e4109058e5dee7b2a1b01e3f9b698f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -351,6 +351,52 @@
                 "html"
             ],
             "time": "2020-06-29T00:56:53+00:00"
+        },
+        {
+            "name": "hreitsma/yii2-simplemath-captcha",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hreitsma/yii2-simplemath-captcha.git",
+                "reference": "449413342150d8759e6b7f46842446ce9498a48d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hreitsma/yii2-simplemath-captcha/zipball/449413342150d8759e6b7f46842446ce9498a48d",
+                "reference": "449413342150d8759e6b7f46842446ce9498a48d",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0"
+            },
+            "default-branch": true,
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "hr\\captcha\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Henk Reitsma",
+                    "email": "henkreitsma1990@gmail.com"
+                }
+            ],
+            "description": "Simple Math Captcha",
+            "keywords": [
+                "captcha",
+                "math",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/hreitsma/yii2-captcha/issues",
+                "source": "https://github.com/hreitsma/yii2-captcha"
+            },
+            "time": "2019-03-03T11:26:51+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4980,12 +5026,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "hreitsma/yii2-simplemath-captcha": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }

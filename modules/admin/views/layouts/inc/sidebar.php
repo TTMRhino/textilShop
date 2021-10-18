@@ -126,6 +126,15 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="<?= Url::to('/admin/password/change') ?>" class="nav-link">              
+            <i class="fa fa-cog" aria-hidden="true"></i>
+              <p>
+                Пароль             
+              </p>
+            </a>
+          </li>
+
           
 
 

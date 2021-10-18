@@ -42,7 +42,7 @@ use yii\helpers\Html;
             <div class="icheck-primary">
             </div>
           </div>
-          <?= $form->field($model, 'rememberMe')->checkbox(['template'=>"{label}{input}"]) ?>
+          
         
           <div class="col-4">
             

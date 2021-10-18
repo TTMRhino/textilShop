@@ -102,7 +102,13 @@ AppAsset::register($this);
                                         <li><a href="<?= Url::toRoute('shop/index', $schema = true) ?>">Товары<i class="fa"></i></a></li>                                        
                                       
                                         
-                                        <li><a href="<?= Url::toRoute('site/contact') ?>">Контакты</a></li>                                        
+                                        <li><a href="<?= Url::toRoute('site/contact') ?>">Контакты</a></li>  
+                                        <li>
+                                            <a href="<?= Url::toRoute('cabinet/login') ?>"><i class="fa fa-key" aria-hidden="true"></i>
+Личный кабинет <br/>                                          
+
+                                            </a>
+                                        </li>                                      
                                     </ul>
                                 </nav>
                             </div>
@@ -172,6 +178,16 @@ AppAsset::register($this);
                                         </li>
                                         <li><a href="about.html">О Нас</a></li>
                                         <li><a href="contact.html">Контакты</a></li>
+
+                                        <li>
+                                           
+                                            <a href="<?= Url::toRoute('cabinet/login') ?>">
+                                                <i class="fa fa-key" aria-hidden="true">
+                                                    Личный кабенет (для юр.лиц)
+                                                </i>
+                                            </a>
+                                            
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
