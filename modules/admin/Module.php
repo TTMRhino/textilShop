@@ -45,6 +45,13 @@ class Module extends \yii\base\Module
                     [
                         'allow' => true,                       
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            
+                            if (\Yii::$app->user->identity->username == 'admin' ) {
+                                return true;
+                            }
+                            return false;
+                        }
                     ],
                 ],
             ],

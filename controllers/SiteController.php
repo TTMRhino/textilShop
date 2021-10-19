@@ -53,7 +53,8 @@ class SiteController extends Controller
                 'operators' => ['+','-','*'],
                 'maxValue' => 10,
                 'fontSize' => 18,
-                //'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                
+               // 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }

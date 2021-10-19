@@ -2,30 +2,36 @@
 
 namespace app\controllers;
 
-use app\models\LoginForm;
-use app\models\RegForm;
+use yii\filters\AccessControl;
+
 
 
 class CabinetController extends AppController
-{
 
+{
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,                
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['auth\login'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,                       
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
    
     public function actionIndex()
-    {               
-        //var_dump($top_product);die;       
+    {
 
-        return $this->render('index');
-    }
-
-    public function actionLogin(){
-
-        $model = new LoginForm();
-        return $this->render('login',compact('model'));
-    }
-
-    public function actionRegistration(){
-
-        $model = new RegForm();
-        return $this->render('registration', compact('model'));
+        return $this->render('index') ;
     }
 }

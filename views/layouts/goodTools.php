@@ -104,7 +104,7 @@ AppAsset::register($this);
                                         
                                         <li><a href="<?= Url::toRoute('site/contact') ?>">Контакты</a></li>  
                                         <li>
-                                            <a href="<?= Url::toRoute('cabinet/login') ?>"><i class="fa fa-key" aria-hidden="true"></i>
+                                            <a href="<?= Url::toRoute('auth/login') ?>"><i class="fa fa-key" aria-hidden="true"></i>
 Личный кабинет <br/>                                          
 
                                             </a>
@@ -181,7 +181,7 @@ AppAsset::register($this);
 
                                         <li>
                                            
-                                            <a href="<?= Url::toRoute('cabinet/login') ?>">
+                                            <a href="<?= Url::toRoute('auth/login') ?>">
                                                 <i class="fa fa-key" aria-hidden="true">
                                                     Личный кабенет (для юр.лиц)
                                                 </i>

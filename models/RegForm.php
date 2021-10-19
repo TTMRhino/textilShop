@@ -4,12 +4,14 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
 
-class RegForm extends Model
+class RegForm extends ActiveRecord
 {
-    public $username;
-    public $password;
+    
+   
+    public $password_repeat;
   
     public $verifyCode;
   
@@ -22,19 +24,25 @@ class RegForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-           // ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            [['username', 'password','email'], 'required'],
+            [['email'], 'email'],
+            [ ['email'], 'unique'],         
             ['verifyCode', 'captcha'],
+            //[['password'],'safe'],
+            [['password_repeat'] ,'compare','compareAttribute'=>'password','message'=>'пароли не совпадают!'],
+            [['auth_key'],'safe'],
+            [['email'],'string','max'=>50],
+            [['password'],'string','max'=>80],
         ];
     }
 
+    public static function tableName()
+    {
+        return 'user';
+    }
 
 
-
-    public function validatePassword($attribute, $params)
+   /* public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
@@ -43,7 +51,7 @@ class RegForm extends Model
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
-    }
+    }*/
 
     
 }
