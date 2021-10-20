@@ -104,10 +104,20 @@ AppAsset::register($this);
                                         
                                         <li><a href="<?= Url::toRoute('site/contact') ?>">Контакты</a></li>  
                                         <li>
-                                            <a href="<?= Url::toRoute('auth/login') ?>"><i class="fa fa-key" aria-hidden="true"></i>
-Личный кабинет <br/>                                          
-
+                                            <?php if (\Yii::$app->user->isGuest):?>
+                                            <a href="<?= Url::toRoute('auth/login') ?>">
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                                Личный кабинет <br/>
                                             </a>
+                                            
+                                            <?php else: ?>
+                                                <a href="<?= Url::toRoute('auth/logout') ?>">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+
+                                                LogOut <br/>
+                                            </a>
+                                            <?php endif ?>
+
                                         </li>                                      
                                     </ul>
                                 </nav>
@@ -181,11 +191,19 @@ AppAsset::register($this);
 
                                         <li>
                                            
+                                        <?php if (\Yii::$app->user->isGuest):?>
                                             <a href="<?= Url::toRoute('auth/login') ?>">
-                                                <i class="fa fa-key" aria-hidden="true">
-                                                    Личный кабенет (для юр.лиц)
-                                                </i>
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                                Личный кабинет <br/>
                                             </a>
+                                            
+                                            <?php else: ?>
+                                                <a href="<?= Url::toRoute('auth/logout') ?>">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+
+                                                LogOut <br/>
+                                            </a>
+                                            <?php endif ?>
                                             
                                         </li>
                                     </ul>

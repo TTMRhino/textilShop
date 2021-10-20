@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use yii\filters\AccessControl;
+use app\models\Organizations;
 
 
 
@@ -31,7 +32,17 @@ class CabinetController extends AppController
    
     public function actionIndex()
     {
+        $user = \Yii::$app->user->identity;
 
-        return $this->render('index') ;
+        $organization = Organizations::findOne(['user_id' => $user->id]);
+
+       /* echo "<pre>";
+        print_r( $organization->inn);
+        echo "</pre>";
+        die;*/
+
+        return $this->render('index',compact('organization')) ;
     }
+
+    
 }
