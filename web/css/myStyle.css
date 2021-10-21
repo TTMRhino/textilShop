@@ -9,3 +9,22 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.cabinet-list {
+    font-size: 16px;
+}
+
+.cabinet-list span {
+    font-weight: bold;
+    color: black;
+}
+
+.cabinet-list li {
+    color: #3333FF;
+}
+
+.discount {
+    color: #cc0000;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}

@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\models\LoginForm;
 use app\models\RegForm;
 use app\models\User;
+use  yii\web\Response;
+use yii\bootstrap\ActiveForm;
 
 
 class AuthController extends AppController
@@ -33,9 +35,14 @@ class AuthController extends AppController
     public function actionRegistration(){
 
         $model = new RegForm();
+
+       /* if (\Yii::$app->request->isAjax && $model->load(\Yii::$app->request->post())) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }*/
        
-        if ($model->load(\Yii::$app->request->post()) ){    
-            
+        if ($model->load(\Yii::$app->request->post()) && $model->validate()){    
+                       
             $options = [
                 'cost' => 12,
             ];
@@ -44,7 +51,8 @@ class AuthController extends AppController
             $model->password=$hash;
             $model->password_repeat = $hash;
             $model->email_confirm  = rand(10000, 99999);
-            $model->save();
+
+            $model->save(false);
 
              //SEND MAIL
              $this->sendMailConfirm($model->email,$model->id, $model->email_confirm);
@@ -66,6 +74,7 @@ class AuthController extends AppController
         return $this->redirect('/');
     }
 
+    //отправка почты с сылкой только что зарегестрировавшмуся клиенту
     public function sendMailConfirm($email,$id,$rnd_num){
         try{
             \Yii::$app->mailer->compose()
@@ -88,13 +97,13 @@ class AuthController extends AppController
            }
     }
 
-
+    //подтверждение email по ссылке отправленного письма
     public function actionMailConfirm($id, $rnd_num){
         $confirm = false;
         $user = User::findOne(['id'=> $id]);
         if ($user->email_confirm == $rnd_num){
 
-            $user->email_confirm = 'confirm';
+            $user->email_confirm = 'confirm';//изменяем состояние на подтвержденное
             $user->save(false);
 
             $confirm = true;

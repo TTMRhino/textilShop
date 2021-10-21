@@ -7,21 +7,22 @@ use yii\captcha\Captcha;
 $this->title = 'Регистрация';
 ?>
 
+<!-- Если регисрация успешна -->
+<?php if( Yii::$app->session->hasFlash('success') ): ?>
+            <div class="alert alert-success alert-dismissible" style="text-align: center;" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true" >&times;</span>
+            </button>
+            <?php echo Yii::$app->session->getFlash('success'); ?>
+            </div>            
+        <?php endif;?>
 
 <div class="wraper-login">
     <div class="login">
         <h2>Регистрация личного кабинета</h2>
-
-
-        <!-- Если регисрация успешна -->
-        <?php if( Yii::$app->session->hasFlash('success') ): ?>
-            <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <?php echo Yii::$app->session->getFlash('success'); ?>
-            </div>            
-        <?php endif;?>
         
-        <?php $form = ActiveForm::begin([]); ?>
+        <?php $form = ActiveForm::begin(); ?>
+        
             <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Логин') ?>
             <?= $form->field($model, 'password')->passwordInput()->label('Пароль') ?>
             <?= $form->field($model, 'password_repeat')->passwordInput()->label('Пароль  повторно') ?>

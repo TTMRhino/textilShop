@@ -12,7 +12,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return [           
             ['password' ,'compare','message'=>'пароли не совпадают!'],
-            [['username','auth_key','email'],'safe'],
+            [['auth_key','email'],'safe'],           
             [['password'],'string','max'=>80],
         ];
     }

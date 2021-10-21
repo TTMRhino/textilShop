@@ -26,13 +26,14 @@ class RegForm extends ActiveRecord
             // username and password are both required
             [['username', 'password','email'], 'required'],
             [['email'], 'email'],
-            [ ['email'], 'unique'],         
+            [ ['email','username'], 'unique'],         
             ['verifyCode', 'captcha'],
             //[['password'],'safe'],
             [['password_repeat'] ,'compare','compareAttribute'=>'password','message'=>'пароли не совпадают!'],
             [['auth_key'],'safe'],
             [['email'],'string','max'=>50],
             [['password'],'string','max'=>80],
+            [['email','username'],'trim']
         ];
     }
 

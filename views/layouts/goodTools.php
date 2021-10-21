@@ -103,22 +103,29 @@ AppAsset::register($this);
                                       
                                         
                                         <li><a href="<?= Url::toRoute('site/contact') ?>">Контакты</a></li>  
-                                        <li>
-                                            <?php if (\Yii::$app->user->isGuest):?>
-                                            <a href="<?= Url::toRoute('auth/login') ?>">
-                                                <i class="fa fa-key" aria-hidden="true"></i>
-                                                Личный кабинет <br/>
-                                            </a>
-                                            
+                                        <?php if (\Yii::$app->user->isGuest):?>
+                                            <li>                                        
+
+                                                <a href="<?= Url::toRoute('auth/login') ?>">
+                                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                                    Личный кабинет <br/>
+                                                </a>
+                                            </li> 
                                             <?php else: ?>
-                                                <a href="<?= Url::toRoute('auth/logout') ?>">
-                                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                <li>  
+                                                    <a href="<?= Url::toRoute('/cabinet') ?>">
+                                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                                        Кабинет <br/>
+                                                    </a>
+                                                </li>
+                                                <li>  
+                                                    <a href="<?= Url::toRoute('auth/logout') ?>">
+                                                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                        LogOut <br/>
+                                                    </a>
+                                                </li>
 
-                                                LogOut <br/>
-                                            </a>
-                                            <?php endif ?>
-
-                                        </li>                                      
+                                        <?php endif ?>                                     
                                     </ul>
                                 </nav>
                             </div>
