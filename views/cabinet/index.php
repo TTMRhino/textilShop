@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\bootstrap\ActiveForm;
 ?>
 
 
@@ -48,12 +49,37 @@ use yii\helpers\Url;
                                                                 </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                                <h3>Modal Body</h3>
+                                                                <!-- Тело модального окна -->                                                                
+                                                                <?php $form = ActiveForm::begin(); ?>
+                                                                        <div class="container">        
+                                                                                <div class="row">
+                                                                                        <div class="col-lg-6 ">
+                                                                                                <?= $form->field($organization, 'name')->textInput()->label('Огранизация') ?>
+                                                                                                <?= $form->field($organization, 'inn')->textInput()->label('Инн') ?>
+                                                                                                <?= $form->field($organization, 'ogrn')->textInput()->label('ОГРН') ?>
+                                                                                                <?= $form->field($organization, 'kpp')->textInput()->label('КПП') ?>
+                                                                                                <?= $form->field($organization, 'adres_registr')->textInput()->label('Адрес регистрации') ?>
+                                                                                                <?= $form->field($organization, 'adres_fact')->textInput()->label('Фактический адрес') ?>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6 ">
+                                                                                                <?= $form->field($organization, 'adres_registr')->textInput()->label('Адрес регистрации') ?>
+                                                                                                <?= $form->field($organization, 'pay_account')->textInput()->label('Расчетный счет') ?>
+                                                                                                <?= $form->field($organization, 'kor_account')->textInput()->label('Корр.счет') ?>
+                                                                                                <?= $form->field($organization, 'bik_bank')->textInput()->label('БИК Банка') ?>
+                                                                                                <?= $form->field($organization, 'bank_name')->textInput()->label('Банк') ?>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        
+                                                                        <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                                                                                
+                                                                                <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                                                                        </div>
+                                                                        
+                                                                <?php ActiveForm::end(); ?>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                                                                <button type="button" class="btn btn-primary">Сохранить</button>
-                                                        </div>
+                                                        
                                                 </div>
                                         </div>
                                 </div>

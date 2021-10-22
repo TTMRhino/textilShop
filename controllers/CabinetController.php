@@ -36,10 +36,18 @@ class CabinetController extends AppController
 
         $organization = Organizations::findOne(['user_id' => $user->id]);
 
-       /* echo "<pre>";
-        print_r( $organization->inn);
-        echo "</pre>";
-        die;*/
+        if ($organization->load(\Yii::$app->request->post()) && $organization->validate()){ 
+            /*$user = \Yii::$app->user->identity;
+            echo"<pre>";
+            print_r($user);
+            echo"</pre>";
+            die();*/
+
+            $organization->user_id = $user->id;
+
+            $organization->save(false);
+
+        }
 
         return $this->render('index',compact('organization')) ;
     }

@@ -42,8 +42,8 @@ class Organizations extends \yii\db\ActiveRecord
             [['id'], 'required'],
             [['id', 'user_id', 'discount'], 'integer'],
             [['name'], 'string', 'max' => 100],
-            [['inn', 'ogrn', 'kpp'], 'string', 'max' => 50],
-            [['adres_registr', 'adres_fact', 'pay_account', 'kor_account', 'bik_bank', 'bank_name'], 'string', 'max' => 250],
+            [['inn', 'ogrn', 'kpp','pay_account', 'kor_account', 'bik_bank'], 'integer', 'max' => 99999999999],
+            [['adres_registr', 'adres_fact',  'bank_name'], 'string', 'max' => 250],
             [['id'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
