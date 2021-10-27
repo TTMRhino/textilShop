@@ -2,6 +2,8 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use app\models\Organizations;
+
 
 class Order extends ActiveRecord
 {
@@ -24,10 +26,7 @@ class Order extends ActiveRecord
 
     public function saveOrder($items, $customers_id)
     {
-        /*echo "<pre>";
-             print_r($items);
-            echo "</pre>";*/
-        
+               
         foreach($items as $cart){
             $this->id = null;
             $this->isNewRecord = true;
@@ -49,5 +48,22 @@ class Order extends ActiveRecord
             }
         }
         return true;
+    }
+
+    public function getCount($id){
+        
+        $organization_id = Organizations::findOne(['user_id'=> $id]);        
+
+        $ordersCount = Order::find()->where(['organization_id' => $organization_id->id])->count();      
+
+        return  $ordersCount;
+    }
+
+    public function getAllOrders($id){
+        $organization_id = Organizations::findOne(['user_id'=> $id]); 
+
+        $orders = Order::find()->where(['organization_id' => $organization_id->id])->all();
+        
+        return $orders;
     }
 }

@@ -8,6 +8,7 @@ use app\models\Order;
 use app\models\Customers;
 
 
+
 class CartController extends AppController
 {
     public function actionIndex()
@@ -100,19 +101,50 @@ class CartController extends AppController
         $customer = new Customers();
         //$item = new Items();
 
-
-       
-
         if(!\Yii::$app->user->isGuest ){
             $user = \Yii::$app->user->identity;
 
-            echo"<pre>";
-            print_r( $user);
-            echo"</pre>";die;
+            foreach($session['cart'] as $cart){
+                $item = Items::find()->where(['id' => $cart['id']])->one();                
+                $item->remains = $item->remains - $cart['qty'] ; 
+                $item->save();
+            }
+
+            $transaction = \Yii::$app->getDb()->beginTransaction();
+
+            if( !$order->saveOrder($session['cart'], $customer->id) ){
+              
+                \Yii::$app->session->setFlash('error','Ошибка оформления заказа');
+                 $transaction->rollBack();
+            }else{            
+                $transaction->commit();
+                \Yii::$app->session->setFlash('success','Ваш заказ принят!');
+ 
+                try{
+ 
+                 \Yii::$app->mailer->compose('order',['session' => $session])
+                 ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName'] ])
+                 ->setTo(\Yii::$app->params['adminEmail'])
+                 ->setSubject('Заказ ')
+                 ->send();
+                 
+                }catch (\Swift_TransportException $e){
+                 var_dump($e);die;
+                }
+                //debug($order->getCount($user->id),true);
+                $session->remove('cart');
+                $session->remove('cart.qty');
+                $session->remove('cart.sum');
+ 
+
+                
+            getPdfBill($order->getAllOrders($user->id));
+
+            }
 
         }
 
-        
+      /** ====================== для гостей ============================ */  
         
         if ($customer->load(\Yii::$app->request->post()) ){ 
 

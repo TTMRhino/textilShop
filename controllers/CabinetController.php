@@ -42,12 +42,8 @@ class CabinetController extends AppController
         }
 
         if ($organization->load(\Yii::$app->request->post()) && $organization->validate()){ 
-            /*$user = \Yii::$app->user->identity;
-            echo"<pre>";
-            print_r($user);
-            echo"</pre>";
-            die();*/
-
+            $user = \Yii::$app->user->identity;
+         
             $organization->user_id = $user->id;
 
             $organization->save(false);
