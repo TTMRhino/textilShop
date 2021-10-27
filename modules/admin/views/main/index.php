@@ -79,17 +79,35 @@ $this->params['breadcrumbs'][] = $this->title;
                <!-- ./col -->
 
                <div class="col-lg-3 col-6">
-                <!-- small card -->
-                <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3><?= $customers ?></h3>
+                    <!-- small card -->
+                    <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3><?= $customers ?></h3>
 
-                    <p>Клиенты</p>
+                        <p>Клиенты</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <a href="<?= Url::to('/admin/customers/index') ?>" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>                
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-gradient-success">
+                <div class="inner">
+                    <h3><?= $organizations ?></h3>
+
+                    <p>Организации</p>
                 </div>
                 <div class="icon">
-                <i class="fas fa-users"></i>
+                <i class="fa fa-industry" aria-hidden="true"></i>
+
                 </div>
-                <a href="<?= Url::to('/admin/customers/index') ?>" class="small-box-footer">
+                <a href="<?= Url::to('/admin/organizations/index') ?>" class="small-box-footer">
                     More info <i class="fas fa-arrow-circle-right"></i>
                 </a>
                 </div>

@@ -36,6 +36,11 @@ class CabinetController extends AppController
 
         $organization = Organizations::findOne(['user_id' => $user->id]);
 
+        if($user->username == 'admin'){
+
+            return $this->redirect('/admin');
+        }
+
         if ($organization->load(\Yii::$app->request->post()) && $organization->validate()){ 
             /*$user = \Yii::$app->user->identity;
             echo"<pre>";

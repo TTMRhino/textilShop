@@ -17,7 +17,7 @@ class Order extends ActiveRecord
         return[
 
              [['item_id','customers_id','quantity','price'],'safe'],
-            [['item_id','customers_id','item'],'safe'],
+            [['item_id','customers_id','item','organization_id'],'safe'],
             [['price','total','quantity'],'safe'],                      
         ];
     }

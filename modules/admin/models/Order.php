@@ -36,6 +36,7 @@ class Order extends \yii\db\ActiveRecord
             [['item_id', 'quantity', 'customers_id', 'price', 'total'], 'integer'],
             [['item'], 'string', 'max' => 50],
             [['customers_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customers::className(), 'targetAttribute' => ['customers_id' => 'id']],
+            [['organization_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organizations::className(), 'targetAttribute' => ['organizations_id' => 'id']]
         ];
     }
 

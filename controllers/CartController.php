@@ -100,6 +100,18 @@ class CartController extends AppController
         $customer = new Customers();
         //$item = new Items();
 
+
+       
+
+        if(!\Yii::$app->user->isGuest ){
+            $user = \Yii::$app->user->identity;
+
+            echo"<pre>";
+            print_r( $user);
+            echo"</pre>";die;
+
+        }
+
         
         
         if ($customer->load(\Yii::$app->request->post()) ){ 

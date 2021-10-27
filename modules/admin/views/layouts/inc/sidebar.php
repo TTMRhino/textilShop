@@ -87,6 +87,16 @@
           </li>
 
           <li class="nav-item">
+            <a href="<?= Url::to('/admin/organizations/index') ?>" class="nav-link">
+              
+            <i class="fa fa-users"></i>
+              <p>
+                Организации              
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="<?= Url::to('/admin/category/index')  ?>" class="nav-link">
               
             <i class="fas fa-object-group"></i>
