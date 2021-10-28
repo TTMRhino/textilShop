@@ -6,6 +6,7 @@ use \yii\widgets\ActiveForm;
 <div class="checkout-area pt-30  pb-60">
             <div class="container">
             <?= Alert::widget() ?>
+            
                 <div class="row">
                     
                     <?php if(!empty($session['cart'])): ?>

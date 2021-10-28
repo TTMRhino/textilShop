@@ -98,6 +98,7 @@ use yii\helpers\Url;
                                                 </tr>
                                             </tbody>
                                         </table>
+
                                         <div class="wc-proceed-to-checkout">
                                             <a href="<?= Url::to('checkout') ?>">Оформить заказ</a>
                                         </div>
@@ -109,6 +110,9 @@ use yii\helpers\Url;
                         </form>
                         <!-- Form End -->
                     <?php else: ?>
+
+                        
+
                         <h3>Корзина пуста.</h3>
                     <?php endif ?>
                     </div>

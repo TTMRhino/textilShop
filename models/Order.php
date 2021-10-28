@@ -24,7 +24,7 @@ class Order extends ActiveRecord
         ];
     }
 
-    public function saveOrder($items, $customers_id)
+    public function saveOrder($items, $customers_id, $organization_id = null)
     {
                
         foreach($items as $cart){
@@ -37,11 +37,7 @@ class Order extends ActiveRecord
             $this->quantity = $cart['qty'];
             $this->total = $cart['qty'] * $cart['price'];
             $this->customers_id = $customers_id;
-
-            /*echo "<pre>";
-             print_r($this);
-            echo "</pre>";
-            die;*/
+            $this->organization_id = $organization_id;
 
             if(!$this->save()){
                 return false;

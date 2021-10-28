@@ -6,6 +6,8 @@ use app\models\Items;
 use app\models\Cart;
 use app\models\Order;
 use app\models\Customers;
+use app\models\Organizations;
+
 
 
 
@@ -92,6 +94,17 @@ class CartController extends AppController
 
     }
 
+    public function actionGetBill(){
+        $session = \Yii::$app->session;
+        $session->open();
+        $cart = $session['cart'];
+        $session->remove('cart');
+        $session->remove('cart.qty');
+        $session->remove('cart.sum');
+
+        getPdfBill($cart);
+    }
+
     public function actionCheckout()
     {
         $session = \Yii::$app->session;
@@ -102,51 +115,62 @@ class CartController extends AppController
         //$item = new Items();
 
         if(!\Yii::$app->user->isGuest ){
+        
             $user = \Yii::$app->user->identity;
-
-            foreach($session['cart'] as $cart){
-                $item = Items::find()->where(['id' => $cart['id']])->one();                
-                $item->remains = $item->remains - $cart['qty'] ; 
-                $item->save();
-            }
-
-            $transaction = \Yii::$app->getDb()->beginTransaction();
-
-            if( !$order->saveOrder($session['cart'], $customer->id) ){
-              
-                \Yii::$app->session->setFlash('error','Ошибка оформления заказа');
-                 $transaction->rollBack();
-            }else{            
-                $transaction->commit();
-                \Yii::$app->session->setFlash('success','Ваш заказ принят!');
- 
-                try{
- 
-                 \Yii::$app->mailer->compose('order',['session' => $session])
-                 ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName'] ])
-                 ->setTo(\Yii::$app->params['adminEmail'])
-                 ->setSubject('Заказ ')
-                 ->send();
-                 
-                }catch (\Swift_TransportException $e){
-                 var_dump($e);die;
+            $organization = Organizations::findOne(['user_id' => $user->id]);
+         
+            
+           
+                foreach($session['cart'] as $cart){
+                    $item = Items::find()->where(['id' => $cart['id']])->one();                
+                    $item->remains = $item->remains - $cart['qty'] ; 
+                    $item->save();
                 }
-                //debug($order->getCount($user->id),true);
-                $session->remove('cart');
-                $session->remove('cart.qty');
-                $session->remove('cart.sum');
- 
-
-                
-            getPdfBill($order->getAllOrders($user->id));
-
+            
+               
+    
+                $transaction = \Yii::$app->getDb()->beginTransaction();
+    
+                if( !$order->saveOrder($session['cart'], $customer->id, $organization->id) ){
+                  
+                    \Yii::$app->session->setFlash('error','Ошибка оформления заказа');
+                     $transaction->rollBack();
+                }else{            
+                    $transaction->commit();
+                    \Yii::$app->session->setFlash('success','Ваш заказ принят!');
+     
+                    try{
+     
+                     \Yii::$app->mailer->compose('order',['session' => $session])
+                     ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName'] ])
+                     ->setTo(\Yii::$app->params['adminEmail'])
+                     ->setSubject('Заказ ')
+                     ->send();
+                     
+                    }catch (\Swift_TransportException $e){
+                     var_dump($e);die;
+                    }
+                   
+                    //getPdfBill($session['cart']);
+                  
+                   // $cart = $session['cart'];
+                   
+     
+    
+                    
+               
+                   //return $this->refresh();
+                   return $this->render('bill');
+     
             }
+                        //return $this->render('bill',compact('cart'));
+            
 
         }
 
       /** ====================== для гостей ============================ */  
         
-        if ($customer->load(\Yii::$app->request->post()) ){ 
+        if ($customer->load(\Yii::$app->request->post()) && \Yii::$app->user->isGuest){ 
 
            
             foreach($session['cart'] as $cart){
@@ -189,4 +213,8 @@ class CartController extends AppController
 
         return $this->render('checkout',compact('session', 'order', 'customer'));
     }
+
+
+
+    
 }
