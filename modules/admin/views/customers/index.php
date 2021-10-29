@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'mailindex',
             'city',
             'adress',
-            'comments',
+            //'comments',
             'data',
             'status',
             //'orders_id',

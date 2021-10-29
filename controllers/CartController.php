@@ -7,6 +7,7 @@ use app\models\Cart;
 use app\models\Order;
 use app\models\Customers;
 use app\models\Organizations;
+use Yii;
 
 
 
@@ -95,18 +96,28 @@ class CartController extends AppController
     }
 
     public function actionGetBill(){
-        $session = \Yii::$app->session;
-        $session->open();
-        $cart = $session['cart'];
-        $session->remove('cart');
-        $session->remove('cart.qty');
-        $session->remove('cart.sum');
 
-        getPdfBill($cart);
+        
+       
+            $session = \Yii::$app->session;
+            $session->open();
+    
+            $cart = $session['cart'];
+    
+            $session->remove('cart');
+            $session->remove('cart.qty');
+            $session->remove('cart.sum');
+    
+            getPdfBill($cart);
+       
+       
+
+        return $this->render('home');
     }
 
     public function actionCheckout()
     {
+     
         $session = \Yii::$app->session;
         $session->open();
 
@@ -114,28 +125,37 @@ class CartController extends AppController
         $customer = new Customers();
         //$item = new Items();
 
-        if(!\Yii::$app->user->isGuest ){
+        if(!\Yii::$app->user->isGuest){
         
             $user = \Yii::$app->user->identity;
             $organization = Organizations::findOne(['user_id' => $user->id]);
-         
-            
-           
-                foreach($session['cart'] as $cart){
-                    $item = Items::find()->where(['id' => $cart['id']])->one();                
-                    $item->remains = $item->remains - $cart['qty'] ; 
-                    $item->save();
-                }
-            
+
+                //редирект если в сесии нет записей
+               
+                    if(empty($session['cart'] )){
+                        $this->redirect('/shop/index');
+                    }
+                
+
+                    foreach($session['cart'] as $cart){
+                        $item = Items::find()->where(['id' => $cart['id']])->one();                
+                        $item->remains = $item->remains - $cart['qty'] ; 
+                        $item->save();
+                    }
                
     
                 $transaction = \Yii::$app->getDb()->beginTransaction();
+
+                $customer->name = 'Organization';
+                $customer->save(false);
     
                 if( !$order->saveOrder($session['cart'], $customer->id, $organization->id) ){
                   
                     \Yii::$app->session->setFlash('error','Ошибка оформления заказа');
                      $transaction->rollBack();
-                }else{            
+                   
+                }else{    
+                           
                     $transaction->commit();
                     \Yii::$app->session->setFlash('success','Ваш заказ принят!');
      
@@ -150,23 +170,12 @@ class CartController extends AppController
                     }catch (\Swift_TransportException $e){
                      var_dump($e);die;
                     }
-                   
-                    //getPdfBill($session['cart']);
-                  
-                   // $cart = $session['cart'];
-                   
-     
-    
                     
-               
-                   //return $this->refresh();
-                   return $this->render('bill');
-     
-            }
-                        //return $this->render('bill',compact('cart'));
-            
 
-        }
+                   return $this->render('bill');     
+                  //$this->redirect('get-bill');
+            }
+          }
 
       /** ====================== для гостей ============================ */  
         

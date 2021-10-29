@@ -317,7 +317,7 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 		/*$pdf = $dompdf->output(); 
 		file_put_contents(__DIR__ . '/schet-10.pdf', $pdf); */
 		
-	
+
 		
 	}
 
