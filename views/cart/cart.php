@@ -86,15 +86,25 @@ use yii\helpers\Url;
                                         <br />
                                         <table>
                                             <tbody>
-                                                <tr class="cart-subtotal">
+                                               <!-- <tr class="cart-subtotal">
                                                     <th>Подитог:</th>
                                                     <td><span class="amount">$215.00</span></td>
-                                                </tr>
+                                                </tr>-->
                                                 <tr class="order-total">
                                                     <th>Всего:</th>
                                                     <td>
-                                                        <strong><span class="amount"><?= $_SESSION['cart.sum'] ?> руб.</span></strong>
+                                                        <strong><span class="amount"><?= $_SESSION['cart.sum'] - (($_SESSION['cart.sum']/100)*$organization->discount) ?> руб.</span></strong>
                                                     </td>
+
+                                                    <?php if(!\Yii::$app->user->isGuest): ?>
+                                                        <tr class="order-total">
+                                                            <th>Скидка: </th>
+                                                                <td>
+                                                                    <strong><span class="amount"><?= $organization->discount ?> </span>%</strong>
+                                                                </td>
+                                                        </tr>
+                                                    <?php endif ?>
+
                                                 </tr>
                                             </tbody>
                                         </table>

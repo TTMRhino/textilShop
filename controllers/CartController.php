@@ -16,8 +16,10 @@ class CartController extends AppController
 {
     public function actionIndex()
     {
-        
-        return $this->render('cart');
+        $user = \Yii::$app->user->identity;
+        $organization = Organizations::findOne(['user_id' => $user->id]);
+       
+        return $this->render('cart',compact('organization'));
     }
 
     public function actionAdd($id)
@@ -97,7 +99,8 @@ class CartController extends AppController
 
     public function actionGetBill(){
 
-        
+            $user = \Yii::$app->user->identity;
+            $organization = Organizations::findOne(['user_id' => $user->id]);
        
             $session = \Yii::$app->session;
             $session->open();
@@ -108,7 +111,7 @@ class CartController extends AppController
             $session->remove('cart.qty');
             $session->remove('cart.sum');
     
-            getPdfBill($cart);
+            getPdfBill($cart, $organization->discount);
        
        
 
@@ -121,35 +124,42 @@ class CartController extends AppController
         $session = \Yii::$app->session;
         $session->open();
 
+      
+
+        if( !isset($session['cart']) ){
+           
+            return $this->redirect('/shop/index');
+        }
+
         $order = new Order();
         $customer = new Customers();
+        $organization = null;
         //$item = new Items();
 
-        if(!\Yii::$app->user->isGuest){
+        if(!\Yii::$app->user->isGuest){ //если организация а не простой клент
         
             $user = \Yii::$app->user->identity;
             $organization = Organizations::findOne(['user_id' => $user->id]);
 
                 //редирект если в сесии нет записей
                
-                    if(empty($session['cart'] )){
-                        $this->redirect('/shop/index');
-                    }
+                    
                 
-
+                 
                     foreach($session['cart'] as $cart){
                         $item = Items::find()->where(['id' => $cart['id']])->one();                
                         $item->remains = $item->remains - $cart['qty'] ; 
-                        $item->save();
+                        $item->save();                        
+                                         
                     }
                
-    
+                    
                 $transaction = \Yii::$app->getDb()->beginTransaction();
 
                 $customer->name = 'Organization';
                 $customer->save(false);
     
-                if( !$order->saveOrder($session['cart'], $customer->id, $organization->id) ){
+                if( !$order->saveOrder($session['cart'], $customer->id, $organization->id,$organization->discount) ){
                   
                     \Yii::$app->session->setFlash('error','Ошибка оформления заказа');
                      $transaction->rollBack();
@@ -188,8 +198,8 @@ class CartController extends AppController
                 $item->save();
             }
             
-            $transaction = \Yii::$app->getDb()->beginTransaction();    
-            
+            $transaction = \Yii::$app->getDb()->beginTransaction();            
+
            if(!$customer->save() || !$order->saveOrder($session['cart'], $customer->id) ){
               
                \Yii::$app->session->setFlash('error','Ошибка оформления заказа');
@@ -220,7 +230,10 @@ class CartController extends AppController
            
         }
 
-        return $this->render('checkout',compact('session', 'order', 'customer'));
+        $organization = Organizations::findOne(['user_id' => $user->id]);
+
+        
+        return $this->render('checkout',compact('session', 'order', 'customer','organization'));
     }
 
 

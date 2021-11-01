@@ -38,7 +38,7 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 	}
 
 
-	function getPdfBill($prods){
+	function getPdfBill($prods, $discount = 0){
 	
 		$html = '
 	<html>
@@ -242,7 +242,10 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 			
 			$total = $nds = 0;
 			foreach ($prods as $i => $row) {
-				$total += $row['price'] * $row['qty'];
+
+				$price = ($row['price'] - (($row['price']/100) * $discount) );
+
+				$total +=  $price * $row['qty'];
 				//$nds += ($row->price * 18 / 100) * $row->quantity;
 	
 				$html .= '
@@ -251,8 +254,8 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 					<td align="left">' . $row['title'] . '</td>
 					<td align="right">' . $row['qty'] . '</td>
 					<td align="left"> шт. </td>
-					<td align="right">' . format_price($row['price']) . '</td>
-					<td align="right">' . format_price($row['price'] * $row['qty']) . '</td>
+					<td align="right">' . format_price($price) . '</td>
+					<td align="right">' . format_price($price * $row['qty']) . '</td>
 				</tr>';
 			}
 	

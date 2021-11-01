@@ -24,18 +24,21 @@ class Order extends ActiveRecord
         ];
     }
 
-    public function saveOrder($items, $customers_id, $organization_id = null)
+    public function saveOrder($items, $customers_id, $organization_id = null,$discount = 0)
     {
-               
+        //debug($discount,true);
+
         foreach($items as $cart){
             $this->id = null;
             $this->isNewRecord = true;
 
+            $price = $cart['price'] - ($cart['price'] / 100) * $discount;
+
             $this->item_id = $cart['id'];
             $this->item = $cart['title'];
-            $this->price = $cart['price'];
+            $this->price = $price;
             $this->quantity = $cart['qty'];
-            $this->total = $cart['qty'] * $cart['price'];
+            $this->total = $cart['qty'] * $price;
             $this->customers_id = $customers_id;
             $this->organization_id = $organization_id;
 
