@@ -22,6 +22,13 @@ $config = [
             'layout' => 'admin',
             
         ],
+
+        'api' => [
+            'class' => 'app\modules\api\Module',
+            'defaultRoute' => 'V1/index',
+            
+               
+        ],
     ],
     'components' => [
         'assetManager' => [
@@ -38,6 +45,9 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'VNAIVd54poTTqpNYmpnvaIeuZu04tsEi',
             'baseUrl' => '',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -46,6 +56,7 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => '/auth/login',
+            //'enableSession' => false, //ОТключать только при чисто REST API сервисе  
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -80,12 +91,20 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
+            
             'rules' => [
                 'shop/<categoryid:\d+><page:\d+>' => 'shop/index',
                 'shop/<categoryid:\d+>' => 'shop/index',
               
-                
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => [
+                        'u' => 'user',
+                       
+                    ],
+                ]                           
             ],
+           
         ],
         
     ],

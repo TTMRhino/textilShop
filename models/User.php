@@ -14,6 +14,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
             ['password' ,'compare','message'=>'пароли не совпадают!'],
             [['auth_key','email'],'safe'],           
             [['password'],'string','max'=>80],
+            ['access_token', 'safe'],
         ];
     }
     public static function tableName()

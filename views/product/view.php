@@ -43,7 +43,17 @@ use yii\helpers\Url;
                         <div class="thubnail-desc fix">
                             <h3 class="product-header"><?= $item->item ?></h3>
                             <p class="">Группа: <?= $item->category->title ?></p>
-                            <p class="">Подгруппа: <?= $item->subCategory->title ?></p>
+
+                            <p class="">Группа: <?= $item->category->title ?></p>
+                            
+                            <p class="">Подгруппа: <?php if(empty($item->subCategory->title)){
+                                 echo 'Пусто';
+                            }else{
+                                 echo $item->subCategory->title;
+                            }  ?>
+                            
+                            </p>
+
                             <div class="rating-summary fix mtb-10">
                                 <div class="rating f-left">
                                     <i class="fa fa-star"></i>

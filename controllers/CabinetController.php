@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use yii\filters\AccessControl;
+
 use app\models\Organizations;
+use app\models\Order;
 
 
 
@@ -51,6 +53,18 @@ class CabinetController extends AppController
         }
 
         return $this->render('index',compact('organization')) ;
+    }
+
+    public function actionHistory(){
+
+        $user = \Yii::$app->user->identity;
+        $organization = Organizations::findOne(['user_id' => $user->id]);
+
+        
+        $orders = Order::find()->where(['organization_id' => $organization->id])->all();
+
+
+        return $this->render('history',compact('orders'));
     }
 
     

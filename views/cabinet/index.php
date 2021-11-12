@@ -39,6 +39,10 @@ use yii\bootstrap\ActiveForm;
                                 Изменить данные
                                 </a>
 
+                                <a href="cabinet/history" class="btn btn-lg btn-secondary" >
+                                Исторяи заказов
+                                </a>
+
                                 <div class="modal fade" id="cabinetModal" tabindex="-1" role="dialog" aria-labelledby="cabinetModal" aria-hidden="true">
                                         <div class="modal-dialog">
                                                 <div class="modal-content">
