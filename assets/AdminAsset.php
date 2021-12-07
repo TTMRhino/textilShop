@@ -19,10 +19,15 @@ class AdminAsset extends AssetBundle
         'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js',
         'adminlte/dist/js/adminlte.min.js',
         'adminlte/dist/js/electro74_main.js',
+        'js/myScript.js',
         
     ];
     public $depends = [
         'yii\web\YiiAsset',
                 
+    ];
+
+    public $jsOptions = [
+        'position'=> \Yii\web\View::POS_HEAD,
     ];
 }

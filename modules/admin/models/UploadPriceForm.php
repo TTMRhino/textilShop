@@ -5,6 +5,7 @@ namespace app\modules\admin\models;
 
 use yii\base\Model;
 use yii\web\UploadedFile;
+use yii\web\Response;
 
 
 class UploadPriceForm extends Model
@@ -60,9 +61,6 @@ class UploadPriceForm extends Model
                $findItem->price = $price;                   
                $findItem->save(false);
             }
-              
-             
-
                    
         }
 
