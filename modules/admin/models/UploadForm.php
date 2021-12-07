@@ -17,7 +17,7 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx'],
+            [['file'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xml'],
         ];
     }
     
@@ -27,110 +27,94 @@ class UploadForm extends Model
             //var_dump($this->file->tempName);die;
             
             //$this->file->saveAs('uploads/' . $this->file->baseName . '.' . $this->file->extension);
-            return $this->priceToBd($this->file->tempName);
+            return $this->nomenclatureToBd($this->file->tempName);
         } else {
             return false;
         }
     }
 
-    public function priceToBd($xmlFile)
+    public function nomenclatureToBd($xmlFile)
     {
-       
-        
-        
-        if ( $xlsx = SimpleXLSX::parse($xmlFile) ) {
+        $xml = simplexml_load_file($xmlFile);
 
-            //var_dump($xlsx);die;
+        
+       //Main groups
+        foreach ($xml->Классификатор->Группы->Группа as $Group){
+            $findMainGeoup = null;
+            $mainGroupId = null;
+            $findMainGeoup = Category::findOne(['code1c' => $Group->Ид]);
+          
+            //если findMainGeoup null => группы не существет. Создаем и записываем новую группу
+            if(is_null($findMainGeoup)){
+              //  debug($Group->Наименование,true);
+                $main_group = new Category();
+                $main_group->title = $Group->Наименование;
+                $main_group->code1c = $Group->Ид;
+                $main_group->save(false);
+
+                $mainGroupId = $main_group->id;
+                $mainGroup1c =  $main_group->code1c;
+            }   
             
-            $mainGroupId =0;
-            $subGroupId =0;
-        
-           
-            $message=[];
-        
-            foreach($xlsx->rows() as $row){
-                
-                if ($row[1] ==="Группа" ){
-                    
-                  $findCategory = Category::findOne(['title' => $row[0]]);
-                    
-                    if (is_null($findCategory)){
-                        //die('Нет такой сточки');
-                        $main_group = new Category();
-                        $main_group->title = $row[0];
-                        $main_group->save();
+            
+             //Sub groups
+            foreach ($xml->Классификатор->Группы->Группа->Группы->Группа as $key=>$Group){
+                $findSubGroup = null;
+                $findSubGroup = SubCategory::findOne(['code1c' => $Group->Ид]);
 
-                        $mainGroupId = $main_group->id;
-                        array_push($message, " <h3>Группа $row[0] добавлена в БД. </h3>");
-                    }else{
-                        
-                        //array_push($message," <h3 style='color:red'>Группу $row[0] пропускаем. </h3>");
-                        $mainGroupId =  $findCategory->id;
-                    }                    
+                //если findSubGroup null => группы не существет. Создаем и записываем новую группу
+                if(is_null($findSubGroup)){
                    
-        
-                }elseif(empty($row[1])){       
-
-                    $findSubCategory = SubCategory::findOne(['title' => $row[0]]);
-
-                    if (is_null($findSubCategory)){
-                        $sub_group = new SubCategory();
-                        $sub_group->title = $row[0];
-                        $sub_group->maingroup_id = $mainGroupId;
-                        $sub_group->save();
-
-                        $subGroupId = $sub_group->id;
-                        array_push($message, "<h4>Под - Группа $row[0] добавлена в БД. </h4>");
-                    }else{
-                        //array_push($message, "<h4 style='color:red' >Под - Группу $row[0] пропускаем. </h4>");
-                        $subGroupId =   $findSubCategory->id;
-                    }                   
-                    
-                }else{                   
-                   
-                    $findItem = Items::findOne(['item' => $row[0]]);
-                    if (is_null($findItem)){
-                        $item = new Items();
-                        $item->vendor = $row[1];
-                        $item->maingroup_id = $mainGroupId;
-                        $item->subgroup_id = $subGroupId;
-                        $item->item = $row[0];
-                        $item->price = $row[2];
-                        $item->pur_price = $row[2];
-                        $item->old_price = $row[2];
-                        $item->save();
-        
-                        array_push($message, "<p>товар $row[0] добавлен  </p>");
-                    }else{
-                        if($findItem->price <> $row[2]){
-                            array_push($message, "<p style='color:green'>товар $row[0] - Цена изменена (c $findItem->price на $row[2]).  </p>");
-                            
-                            $findItem->old_price = $findItem->price;
-                            $findItem->price = $row[2];
-                            $findItem->update();
-
-                            
-                        }
-                        
-                        //array_push($message, "<p style='color:green'>товар $row[0] пропускаем.  </p>");
-                    }
-
-                    
-                }
-              
+                    $sub_group = new SubCategory();
+                    $sub_group->title = $Group->Наименование;
+                    $sub_group->code1c = $Group->Ид;
+                    $sub_group->maingroup_id = $mainGroupId;
+                    $sub_group->maingroup_1c = $mainGroup1c;
+                    $sub_group->save(false);
+                }                    
             }
-        
-            array_push($message, "<h2> Готово </h2>");
-        
-            /*echo "<pre>";
-            print_r( $xlsx->rows() );
-            echo "</pre>";*/
-            return $message;         
-            
-        } else {
-            echo SimpleXLSX::parseError();
-            \Yii::$app->session->setFlash('error_uploaded', "Ошибка! Что то пошло не так. ");
-            return false;
+          
         }
+
+       
+
+        
+        //Items
+
+        foreach ($xml->Каталог->Товары->Товар as $key=>$item){
+            $findItem = null;
+            $findItem = Items::findOne(['code1c' => $item->Ид]);
+
+             //ИдКлассификатора - это main_group товара (прекреп)
+
+             if(is_null($findItem)){
+
+                $main_groupID = Category::findOne(['code1c' => $item->Группы->Ид]);
+                $sub_groupID = SubCategory::findOne(['code1c' => $item->Группы->Ид]);
+
+                $new_item = new Items();
+                $new_item->item= $item->Наименование;
+                $new_item->code1c = $item->Ид;
+
+                $new_item->maingroup_id =  $main_groupID->id;
+                $new_item->subgroup_id = $sub_groupID->id;
+
+                $new_item->maingroup_1c = $main_groupID->code1c;
+                $new_item->subgroup_1c = $sub_groupID->code1c;
+
+                $new_item->description = $item->Описание;                
+                $new_item->price = null;
+                $new_item->remains = null;
+                $new_item->vendor =  $item->Штрихкод;
+                $new_item->save(false);
+             }
+
+                   
+        }
+
+      
+
+        
+       //die();
     }
 }

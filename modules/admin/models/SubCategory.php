@@ -12,6 +12,8 @@ use Yii;
  * @property int $id
  * @property string|null $title
  * @property int|null $maingroup_id
+ * @property string|null $code1c
+ * @property string|null $maingroup_1c
  */
 class SubCategory extends \yii\db\ActiveRecord
 {
@@ -31,6 +33,7 @@ class SubCategory extends \yii\db\ActiveRecord
         return [
             [['maingroup_id'], 'integer'],
             [['title'], 'string', 'max' => 150],
+            [['code1c','maingroup_1c'],'safe']
         ];
     }
 

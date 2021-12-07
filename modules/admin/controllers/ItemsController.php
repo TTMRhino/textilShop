@@ -12,6 +12,7 @@ use app\modules\admin\models\SubCategory;
 
 
 use app\modules\admin\models\UploadForm;
+use app\modules\admin\models\UploadPriceForm;
 use yii\web\UploadedFile;
 
 
@@ -63,11 +64,6 @@ class ItemsController extends AppAdminController
         ]);
     }
 
-    /**
-     * Creates a new Items model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Items();
@@ -81,13 +77,7 @@ class ItemsController extends AppAdminController
         ]);
     }
 
-    /**
-     * Updates an existing Items model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -100,6 +90,8 @@ class ItemsController extends AppAdminController
             'model' => $model,
         ]);
     }
+
+  
 
     /**
      * Deletes an existing Items model.
@@ -144,7 +136,7 @@ class ItemsController extends AppAdminController
     }
 
 
-     /** Загрузка файла */
+     /** Загрузка номенклатуры */
      public function actionUpload()
      {
          $model = new UploadForm();
@@ -163,4 +155,27 @@ class ItemsController extends AppAdminController
  
          return $this->render('upload', ['model' => $model]);
      }
+
+
+       /** Загруска цен */
+
+    public function actionUploadPrice()
+    {
+        $model = new UploadPriceForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($message = $model->upload()) {
+                // file is uploaded successfully
+                \Yii::$app->session->setFlash('success_uploaded', "Успешно загружен!...Но это не точно. ");
+               
+               //return $this->redirect(['upload' => $model]);
+               return $this->render('upload', ['model' => $model,'message'=>$message]);               
+              
+            }
+        }
+
+        
+        return $this->render('upload', ['model' => $model,'message'=>$message]); 
+    }
 }

@@ -126,15 +126,34 @@
             </a>
           </li>
 
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        </div>
+
+        <!-- Блок загрузки ---start----->
           <li class="nav-item">
             <a href="<?= Url::to('/admin/items/upload') ?>" class="nav-link">
               
             <i class="fas fa-file-upload"></i>
               <p>
-                Загрузка прайса              
+                Загрузка номенклатура и групп              
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+          <a href="<?= Url::to('/admin/items/upload-price') ?>" class="nav-link">
+              
+              <i class="fas fa-file-upload"></i>
+                <p>
+                  Загрузка цен              
+                </p>
+              </a>
+          </li>
+          
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          </div>
+
+          <!-- Блок загрузки ---end--- -->
 
           <li class="nav-item">
             <a href="<?= Url::to('/admin/password/change') ?>" class="nav-link">              

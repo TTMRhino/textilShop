@@ -13,6 +13,9 @@ use Yii;
  * @property string|null $vendor
  * @property string|null $maingroup_id
  * @property string|null $subgroup_id
+ * @property string|null $subgroup_1с
+ * @property string|null $maingroup_1с
+ * @property string|null $code1c
  * @property string|null $item
  * @property float|null $price
  * @property float|null $pur_price
@@ -38,7 +41,7 @@ class Items extends \yii\db\ActiveRecord
     {
         return [
             //[['price'], 'number'],
-            [['pur_price', 'old_price','price','top_product','description','vendor','maingroup_id', 'subgroup_id', 'item'],'safe'],
+            [['subgroup_1с','maingroup_1с','code1c','pur_price', 'old_price','price','top_product','description','vendor','maingroup_id', 'subgroup_id', 'item'],'safe'],
             ['remains','integer'] ,
             //[['description'], 'string'],
             //[['top_product','remains'], 'integer'],

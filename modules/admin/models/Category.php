@@ -11,6 +11,7 @@ use Yii;
  * @property string|null $title
  * @property string|null $descrption
  * @property string|null $key_words
+ * @property string|null $code1c
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -30,6 +31,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['title'], 'string', 'max' => 150],
             [['descrption', 'key_words'], 'string', 'max' => 500],
+            ['code1c','safe']
         ];
     }
 
