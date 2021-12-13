@@ -42,10 +42,11 @@ class UploadForm extends Model
         foreach ($xml->Классификатор->Группы->Группа as $Group){
             $findMainGeoup = null;
             $mainGroupId = null;
-            $findMainGeoup = Category::findOne(['code1c' => $Group->Ид]);
-          
+            $findMainGroup = Category::findOne(['code1c' => $Group->Ид]);
+
+         
             //если findMainGeoup null => группы не существет. Создаем и записываем новую группу
-            if(is_null($findMainGeoup)){
+            if(is_null($findMainGroup)){
               //  debug($Group->Наименование,true);
                 $main_group = new Category();
                 $main_group->title = $Group->Наименование;
@@ -54,6 +55,9 @@ class UploadForm extends Model
 
                 $mainGroupId = $main_group->id;
                 $mainGroup1c =  $main_group->code1c;
+            }else{
+                $mainGroupId = $findMainGroup->id;
+                $mainGroup1c = $findMainGroup->code1c;
             }   
             
             
@@ -64,7 +68,7 @@ class UploadForm extends Model
 
                 //если findSubGroup null => группы не существет. Создаем и записываем новую группу
                 if(is_null($findSubGroup)){
-                   
+
                     $sub_group = new SubCategory();
                     $sub_group->title = $Group->Наименование;
                     $sub_group->code1c = $Group->Ид;
@@ -105,16 +109,12 @@ class UploadForm extends Model
                 $new_item->description = $item->Описание;                
                 $new_item->price = null;
                 $new_item->remains = null;
-                $new_item->vendor =  $item->Штрихкод;
+                $new_item->vendor =  $item->Штрихкод;                
                 $new_item->save(false);
              }
 
                    
         }
-
-      
-
-        
-       //die();
+  
     }
 }

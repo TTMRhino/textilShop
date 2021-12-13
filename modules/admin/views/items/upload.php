@@ -5,13 +5,14 @@ use yii\helpers\Url;
 
 
 <div class="container">
-        
+        <div class="message"></div>
 <div class="progress mb-3">
   <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
 </div>
 
 <script>
     $(document).ready(function(){
+
        $(".formUpload").on("submit", function(e){
            e.preventDefault();//отключили обновление страницы по клику на собмит
            
@@ -21,28 +22,48 @@ use yii\helpers\Url;
                 xhr.upload.addEventListener('progress', function(event){
                     var  persenSuccess = Math.floor(((event.loaded / event.total) * 100))
                     $(".progress-bar").width(persenSuccess + "%");
-                    $(".progress-bar").html(persenSuccess + "%");
-                });
+                    $(".progress-bar").html(persenSuccess + "%");                  
+                });              
                 return xhr;
             },
             type: 'POST',
             url:"<?= Url::current() ?>",
-            data:new FormData(this),
+            data: new FormData(this),
             contentType: false,
             cache: false,
             processData: false,
             beforeSend: function(){
                 $(".progress-bar").width("0%");
             },
-            success:function(){
+            success:function(data){
+                $msg = $(".message");
+
+                $msg.removeAttr('class');
+
+                $msg.addClass('alert alert-success');
+                $msg.html("Файл успешно загружен.");
+
                 console.log('Success!!!')
+                
+                
             },
-            error:function(){
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                $msg = $(".message");
+
+                $msg.removeAttr('class');
+
+                $msg.addClass('alert alert-danger');
+                $msg.html("Ошибка! "+errorThrown);               
                 console.log('Error')
+                console.log(errorThrown)
+                console.log(XMLHttpRequest.statusText);
             }
         })
-       })
     })
+})
+      
+
+      
 </script>
 
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class'=>'formUpload']]) ?>
@@ -74,15 +95,12 @@ use yii\helpers\Url;
     </div>
 </div>
 
+     
+<!-- <div class="row">
+    <div class="col-sm-12" id="countMessage">
 
-<div class="row">
-    <div class="col-sm-12">
-        <?php if(!empty($message)):?>
-            <?php foreach($message as $mesg): ?>
-                <?= $mesg ?>
-            <?php endforeach ?>
-        <?php endif ?>
+    <?= $message ?>
     </div>
-</div>
+</div>-->
 
 

@@ -18,7 +18,7 @@ class SubCategorySearch extends SubCategory
     {
         return [
             [['id', 'maingroup_id'], 'integer'],
-            [['title'], 'safe'],
+            [['title','code1c'], 'safe'],
         ];
     }
 

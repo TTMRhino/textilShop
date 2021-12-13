@@ -41,7 +41,9 @@ class Items extends \yii\db\ActiveRecord
     {
         return [
             //[['price'], 'number'],
-            [['subgroup_1с','maingroup_1с','code1c','pur_price', 'old_price','price','top_product','description','vendor','maingroup_id', 'subgroup_id', 'item'],'safe'],
+            [['subgroup_1с','maingroup_1с','code1c','pur_price', 
+            'old_price','price','top_product','description','vendor','maingroup_id', 
+            'subgroup_id', 'item'],'safe'],
             ['remains','integer'] ,
             //[['description'], 'string'],
             //[['top_product','remains'], 'integer'],
@@ -66,7 +68,8 @@ class Items extends \yii\db\ActiveRecord
             'description' => 'Description',
             'old_price' => 'Old Price',
             'top_product' => 'Top Product',
-            'remains' => 'Remains'
+            'remains' => 'Remains',
+            
         ];
     }
 

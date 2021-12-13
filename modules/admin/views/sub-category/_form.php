@@ -18,6 +18,10 @@ use app\modules\admin\models\Category;
     <?= $form->field($model, 'maingroup_id')->dropDownList(\yii\helpers\ArrayHelper::map(Category::find()->all(), 
     'id', 'title')); ?>
 
+     <?= $form->field($model, 'maingroup_1c')->textInput(['maxlength' => true]) ?> 
+
+     <?= $form->field($model, 'code1c')->textInput(['maxlength' => true]) ?> 
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

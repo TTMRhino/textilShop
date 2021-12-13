@@ -14,6 +14,7 @@ class UploadPriceForm extends Model
      * @var UploadedFile
      */
     public $file;
+    public $countMessage = 110;
 
     public function rules()
     {
@@ -23,7 +24,7 @@ class UploadPriceForm extends Model
     }
     
     public function upload()
-    {
+    {       
         if ($this->validate()) {
             //var_dump($this->file->tempName);die;
             
@@ -33,6 +34,9 @@ class UploadPriceForm extends Model
             return false;
         }
     }
+
+
+    //Запись данных из xml в  БД
 
     public function priceToBd($xmlFile)
     {
@@ -49,6 +53,7 @@ class UploadPriceForm extends Model
             foreach($item->Цены->Цена as $typePrice){
                 if($typePrice->ИдТипаЦены == '8f38fd0b-8d5a-11e7-8f42-50465d54779c'){
                     $price =  $typePrice->ЦенаЗаЕдиницу;
+                    
                 }
             }
           
@@ -59,13 +64,16 @@ class UploadPriceForm extends Model
              //ИдКлассификатора - это main_group товара (прекреп)
             if(!is_null($findItem)){                                   
                $findItem->price = $price;                   
-               $findItem->save(false);
+               $findItem->save(false);               
+               
+               $this->countMessage= 55;
             }
+
+           
                    
         }
-
-       
-
-  
+        $this->countMessage= 55;
+        return $this->countMessage;   
+        
     }
 }

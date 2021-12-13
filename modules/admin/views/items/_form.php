@@ -34,6 +34,12 @@ use app\modules\admin\models\SubCategory;
 
     <?= $form->field($model, 'old_price')->textInput() ?>
 
+    <?= $form->field($model, 'code1c')->textInput() ?>
+
+    <?= $form->field($model, 'maingroup_1c')->textInput() ?>
+
+    <?= $form->field($model, 'subgroup_1c')->textInput() ?>
+
     <?= $form->field($model, 'remains')->textInput() ?>
 
     <?= $form->field($model, 'top_product')->textInput() ?>

@@ -7,7 +7,9 @@ use app\modules\admin\models\Items;
 use app\modules\admin\models\ItemsSearch;
 use app\modules\admin\controllers\AppAdminController;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
 use app\modules\admin\models\SubCategory;
 
 
@@ -162,20 +164,30 @@ class ItemsController extends AppAdminController
     public function actionUploadPrice()
     {
         $model = new UploadPriceForm();
+       
 
         if (Yii::$app->request->isPost) {
+           
             $model->file = UploadedFile::getInstance($model, 'file');
+            
             if ($message = $model->upload()) {
                 // file is uploaded successfully
-                \Yii::$app->session->setFlash('success_uploaded', "Успешно загружен!...Но это не точно. ");
+                //\Yii::$app->session->setFlash('success_uploaded', "Успешно загружен!...Но это не точно. ");
                
                //return $this->redirect(['upload' => $model]);
-               return $this->render('upload', ['model' => $model,'message'=>$message]);               
+               
+               return $this->render('upload', ['model' => $model,'message'=>$model->countMessage]);               
               
             }
         }
 
-        
-        return $this->render('upload', ['model' => $model,'message'=>$message]); 
+        if(Yii::$app->request->isAjax){
+            
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return null;
+        }
+
+       
+        return $this->render('upload', ['model' => $model,'message'=>$model->countMessage]); 
     }
 }

@@ -34,6 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'maingroup_id',
             'subgroup_id',
             'item',
+            'code1c',
+            'maingroup_1c',
+           
             [
                 'attribute'=> 'item',
                 'format' => 'raw',

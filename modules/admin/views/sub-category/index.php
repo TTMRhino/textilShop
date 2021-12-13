@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
+            'code1c',
             //'maingroup_id',
             [
                 'attribute'=>'maingroup_id',
