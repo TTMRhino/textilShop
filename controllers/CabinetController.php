@@ -51,6 +51,7 @@ class CabinetController extends AppController
             $organization->save(false);
 
         }
+       
 
         return $this->render('index',compact('organization')) ;
     }

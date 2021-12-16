@@ -8,7 +8,11 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Items';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = [
+    'template' => "<li> > {link}</li>\n",
+    'label' => $this->title,
+];
+
 ?>
 <div class="items-index">
 

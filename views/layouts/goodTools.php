@@ -70,9 +70,16 @@ AppAsset::register($this);
                         <!-- Header Top Right Start -->                                       
                         <div class="col-lg-4 col-md-12">
                             <div class="header-top-right">
-                                
+                                <?php if (!\Yii::$app->user->isGuest):?>
+                                        <h4 class="text-center">Вы зашли под организацией:</h4>
+                                       <h4 class=" text-center text-info"><?= Yii::$app->user->identity->username ?></h4> 
+                                       
+                                    
+                                <?php endif ?>
+
                                 <!-- Header-list-menu End -->
                             </div>
+
                         </div>
                         <!-- Header Top Right End -->
                     </div>
@@ -123,7 +130,9 @@ AppAsset::register($this);
                                                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                                                         LogOut <br/>
                                                     </a>
+                                                    
                                                 </li>
+                                                
 
                                         <?php endif ?>                                     
                                     </ul>

@@ -3,7 +3,10 @@
 use yii\helpers\Url;
 
 $this->title = 'Статистка';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = [
+    'template' => "<li> > {link}</li>\n",
+    'label' => $this->title,
+];
 ?>
 
 <div class="container-fluid">

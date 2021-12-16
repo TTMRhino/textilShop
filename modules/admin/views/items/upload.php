@@ -1,7 +1,16 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+
+
+$this->title = 'Загрузка';
+$this->params['breadcrumbs'][] = [
+    'template' => "<li> > {link}</li>\n",
+    'label' => $this->title,
+];
+
 ?>
+
 
 
 <div class="container">

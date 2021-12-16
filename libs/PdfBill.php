@@ -38,7 +38,7 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 	}
 
 
-	function getPdfBill($prods, $discount = 0){
+	function getPdfBill($prods, $organization){
 	
 		$html = '
 	<html>
@@ -220,8 +220,7 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 				<tr>
 					<td>Покупатель:</td>
 					<th>
-						ООО "Покупатель", ИНН 0000000000, КПП 000000000, 119019, Москва г, 
-						Новый Арбат ул, дом № 10
+					'.$organization->name.', '.$organization->inn.', '.$organization->kpp.', '.$organization->adres_registr.'
 					</th>
 				</tr>
 			</tbody>

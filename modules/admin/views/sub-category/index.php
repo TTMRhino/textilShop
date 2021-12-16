@@ -9,7 +9,10 @@ use app\modules\admin\models\Category;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Sub Categories';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = [
+    'template' => "<li> > {link}</li>\n",
+    'label' => $this->title,
+];
 ?>
 <div class="sub-category-index">
 

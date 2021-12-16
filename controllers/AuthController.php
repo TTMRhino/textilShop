@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\LoginForm;
 use app\models\RegForm;
 use app\models\User;
+use app\models\Organizations;
 use  yii\web\Response;
 use yii\bootstrap\ActiveForm;
 
@@ -53,6 +54,11 @@ class AuthController extends AppController
             $model->email_confirm  = rand(10000, 99999);
 
             $model->save(false);
+
+            $organization = new Organizations();
+           
+            $organization->user_id = $model->id;
+            $organization->save(false);
 
              //SEND MAIL
              $this->sendMailConfirm($model->email,$model->id, $model->email_confirm);

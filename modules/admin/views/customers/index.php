@@ -7,7 +7,10 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Клиенты и заказы';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = [
+    'template' => "<li> > {link}</li>\n",
+    'label' => $this->title,
+];
 ?>
 <div class="customers-index">
 

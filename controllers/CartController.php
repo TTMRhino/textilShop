@@ -104,15 +104,22 @@ class CartController extends AppController
        
             $session = \Yii::$app->session;
             $session->open();
+
+
+            //проверяем козину на существование
+            if(!is_null($session['cart'])){
+                $cart = $session['cart'];
     
-            $cart = $session['cart'];
-    
-            $session->remove('cart');
-            $session->remove('cart.qty');
-            $session->remove('cart.sum');
-    
-            getPdfBill($cart, $organization->discount);
-       
+                $session->remove('cart');
+                $session->remove('cart.qty');
+                $session->remove('cart.sum');
+            }else{
+                //при втором нажатии  получить счет (когда корзина уже пуста) переводит на пустую корзину
+                return $this->render('cart');
+            }
+            
+            //выводим счет
+            getPdfBill($cart, $organization);      
        
 
         return $this->render('home');
@@ -125,7 +132,7 @@ class CartController extends AppController
         $session->open();
 
       
-
+        //редирект если в сесии нет записей
         if( !isset($session['cart']) ){
            
             return $this->redirect('/shop/index');
@@ -136,14 +143,10 @@ class CartController extends AppController
         $organization = null;
         //$item = new Items();
 
-        if(!\Yii::$app->user->isGuest){ //если организация а не простой клент
+        if(!\Yii::$app->user->isGuest){ //если организация а не простой клиент
         
             $user = \Yii::$app->user->identity;
             $organization = Organizations::findOne(['user_id' => $user->id]);
-
-                //редирект если в сесии нет записей
-               
-                    
                 
                  
                     foreach($session['cart'] as $cart){
