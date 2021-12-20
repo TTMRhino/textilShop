@@ -27,11 +27,11 @@ class CategoryWidget extends Widget
 
     public function run()
     {       //забераме инфо из кэша
-        $categoryWidget = \Yii::$app->cache->get('categoryWidget');
+       /* $categoryWidget = \Yii::$app->cache->get('categoryWidget');
 
         if($categoryWidget){
             return $categoryWidget;
-        }
+        }*/
 
         $this->menuHtml  = $this->getMenuHtml();
         
@@ -45,7 +45,7 @@ class CategoryWidget extends Widget
     protected function getMenuHtml()
     {
         $category = Category::find()->select('id, title')->all();
-        $sub_category = SubCategory::find()->all();
+        
 
         $str ='<div class="single-sidebar">
                     <div class="group-title">
@@ -54,17 +54,36 @@ class CategoryWidget extends Widget
                     <ul>
                 ';
 
-        foreach($category as $mainGroup){
-            $str .= '<ul class="middle-menu-list menuSideBar">
-            <li><a href="'. Url::to([ 'index','categoryid' => $mainGroup->id ]) .'">
+        foreach($category as $mainGroup){   
+            
+            
+            $sub_category = SubCategory::findAll([ 'maingroup_id' => $mainGroup->id ]);
+            
+            if(empty($sub_category)){
+                $str .= '<ul class="middle-menu-list menuSideBar">
+                <li><a href="'. Url::to([ 'index','categoryid' => $mainGroup->id ]) .'">
+                '. $mainGroup->title .'</a>';
+            }else{
+                $str .= '<ul class="middle-menu-list menuSideBar">
+                <li><a href="'. Url::to([ 'index','categoryid' => $mainGroup->id ]) .'">
                 '. $mainGroup->title .'<i class="fa fa-angle-down"></i></a>                        
                 <ul class="ht-dropdown dropdown-style-one">   ';
+
+                foreach($sub_category as $subGroup){
+                    if($subGroup->maingroup_id == $mainGroup->id){
+                       $str .= '<li> <a href="'. Url::to([ 'index','subgroup_id' => $subGroup->id ]) .'">'. $subGroup->title .'</a></li>';
+                    }
+                }
+            }
+            
+               
+            
                 
-            foreach($sub_category as $subGroup){
+           /* foreach($sub_category as $subGroup){
                 if($subGroup->maingroup_id == $mainGroup->id){
                    $str .= '<li> <a href="'. Url::to([ 'index','subgroup_id' => $subGroup->id ]) .'">'. $subGroup->title .'</a></li>';
                 }
-            }
+            }*/
             $str .='</ul> </li> </ul> </ul>';
         }
 

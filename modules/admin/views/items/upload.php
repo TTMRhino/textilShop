@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = [
 </div>
 
 <script>
-    $(document).ready(function(){
+   /* $(document).ready(function(){
 
        $(".formUpload").on("submit", function(e){
            e.preventDefault();//отключили обновление страницы по клику на собмит
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = [
             }
         })
     })
-})
+})*/
       
 
       

@@ -204,7 +204,7 @@ use yii\helpers\Url;
                                                     <?php endif ?>
                                                     
                                                 </p>
-                                                <p><?= $item->description ?></p>
+                                                <!--<p><?= $item->description ?></p>-->
                                                 
                                                 <?php if($item->remains <= 0): ?>                                                    
                                                     <div class="alert alert-warning" role="alert" style="width: 160px; text-align:center;">

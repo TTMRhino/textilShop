@@ -61,22 +61,29 @@ class UploadForm extends Model
             }   
             
             
-             //Sub groups
-            foreach ($xml->Классификатор->Группы->Группа->Группы->Группа as $key=>$Group){
-                $findSubGroup = null;
-                $findSubGroup = SubCategory::findOne(['code1c' => $Group->Ид]);
+             //Sub groups   
+             //$ff = !isset ($Group->Группы->Группа);       
+            // debug($ff, true);
+             if(isset($Group->Группы->Группа)){
 
-                //если findSubGroup null => группы не существет. Создаем и записываем новую группу
-                if(is_null($findSubGroup)){
+                foreach ($Group->Группы->Группа as $key=>$Group){
+                    $findSubGroup = null;
+                    $findSubGroup = SubCategory::findOne(['code1c' => $Group->Ид]);
+    
+                    //если findSubGroup null => группы не существет. Создаем и записываем новую группу
+                    if(is_null($findSubGroup)){
+    
+                        $sub_group = new SubCategory();
+                        $sub_group->title = $Group->Наименование;
+                        $sub_group->code1c = $Group->Ид;
+                        $sub_group->maingroup_id = $mainGroupId;
+                        $sub_group->maingroup_1c = $mainGroup1c;
+                        $sub_group->save(false);
+                    }                    
+                }
 
-                    $sub_group = new SubCategory();
-                    $sub_group->title = $Group->Наименование;
-                    $sub_group->code1c = $Group->Ид;
-                    $sub_group->maingroup_id = $mainGroupId;
-                    $sub_group->maingroup_1c = $mainGroup1c;
-                    $sub_group->save(false);
-                }                    
-            }
+             }
+            
           
         }
 
