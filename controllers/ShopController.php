@@ -8,20 +8,21 @@ use yii\data\Pagination;
 
 class ShopController extends AppController
 {
-    public function actionIndex($categoryid = null,$subgroup_id = null, $sort = 'price', $type_sort= SORT_DESC)
+    public function actionIndex($maingroup_id = null,$subgroup_id = null, $sort = 'price', $type_sort= SORT_DESC)
     {       
         $type_sort = $type_sort =='ASC'? SORT_ASC : SORT_DESC;
         
-        if(is_null($categoryid) && !is_null($subgroup_id)){
+        if(is_null($maingroup_id) && !is_null($subgroup_id)){
             $query = Items::find()->where(['subgroup_id'=>$subgroup_id])->orderBy([$sort => $type_sort]);// ищем подгруппы  
 
             $categoryOne =  SubCategory::find()->where(['id'=>$subgroup_id])->one();
             $this->setMeta("{$categoryOne->title}::".\Yii::$app->name);         
 
-        }elseif(!is_null($categoryid) && is_null($subgroup_id)){
-            $query = Items::find()->where(['maingroup_id'=>$categoryid])->orderBy([$sort => $type_sort]);  //ищем группы
+        }elseif(!is_null($maingroup_id) && is_null($subgroup_id)){
             
-            $categoryOne =  Category::find()->where(['id'=>$categoryid])->one();
+            $query = Items::find()->where(['maingroup_id'=>$maingroup_id])->orderBy([$sort => $type_sort]);  //ищем группы
+            
+            $categoryOne =  Category::find()->where(['id'=>$maingroup_id])->one();
             $this->setMeta("{$categoryOne->title}::".\Yii::$app->name, $categoryOne->key_words, $categoryOne->descrption);
         }else{            
             $query = Items::find()->orderBy([$sort => $type_sort]); //ищем ВСЕ

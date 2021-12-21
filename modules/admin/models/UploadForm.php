@@ -61,9 +61,7 @@ class UploadForm extends Model
             }   
             
             
-             //Sub groups   
-             //$ff = !isset ($Group->Группы->Группа);       
-            // debug($ff, true);
+             //Sub groups            
              if(isset($Group->Группы->Группа)){
 
                 foreach ($Group->Группы->Группа as $key=>$Group){
@@ -77,7 +75,7 @@ class UploadForm extends Model
                         $sub_group->title = $Group->Наименование;
                         $sub_group->code1c = $Group->Ид;
                         $sub_group->maingroup_id = $mainGroupId;
-                        $sub_group->maingroup_1c = $mainGroup1c;
+                        $sub_group->maingroup_1c = $mainGroup1c;                       
                         $sub_group->save(false);
                     }                    
                 }
@@ -96,11 +94,12 @@ class UploadForm extends Model
             $findItem = null;
             $findItem = Items::findOne(['code1c' => $item->Ид]);
 
-             //ИдКлассификатора - это main_group товара (прекреп)
+            
 
              if(is_null($findItem)){
 
                 $main_groupID = Category::findOne(['code1c' => $item->Группы->Ид]);
+                
                 $sub_groupID = SubCategory::findOne(['code1c' => $item->Группы->Ид]);
 
                 $new_item = new Items();

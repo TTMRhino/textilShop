@@ -61,11 +61,11 @@ class CategoryWidget extends Widget
             
             if(empty($sub_category)){
                 $str .= '<ul class="middle-menu-list menuSideBar">
-                <li><a href="'. Url::to([ 'index','categoryid' => $mainGroup->id ]) .'">
+                <li><a href="'. Url::to([ 'index','maingroup_id' => $mainGroup->id ]) .'">
                 '. $mainGroup->title .'</a>';
             }else{
                 $str .= '<ul class="middle-menu-list menuSideBar">
-                <li><a href="'. Url::to([ 'index','categoryid' => $mainGroup->id ]) .'">
+                <li><a href="'. Url::to([ 'index','maingroup_id' => $mainGroup->id ]) .'">
                 '. $mainGroup->title .'<i class="fa fa-angle-down"></i></a>                        
                 <ul class="ht-dropdown dropdown-style-one">   ';
 
