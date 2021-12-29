@@ -283,9 +283,9 @@ include_once("../vendor/dompdf/dompdf/autoload.inc.php");
 		</div>
 		
 		<div class="sign">
-			<img class="sign-1" src="' . __DIR__ . '/demo/sign-1.png">
-			<img class="sign-2" src="' . __DIR__ . '/demo/sign-2.png">
-			<img class="printing" src="' . __DIR__ . '/demo/printing.png">
+			<img class="sign-1" src="img/bill/sign.png" alt="SIGN">
+			<img class="sign-2" src="img/bill/sign.png" alt="SIGN">
+			<img class="printing" src="img/bill/stamp.png" alt="STAMP">
 	
 			<table>
 				<tbody>

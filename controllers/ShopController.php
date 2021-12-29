@@ -32,7 +32,7 @@ class ShopController extends AppController
         $pages = new Pagination([ 'totalCount'=> $query->count(), 'pageSize'=>12,'forcePageParam'=>false, 'pageSizeParam'=>false ]);
         $items = $query->offset($pages->offset)->limit($pages->limit)->all();
         
-        return $this->render('index',compact('items','pages','categoryid','subgroup_id','sort'));
+        return $this->render('index',compact('items','pages','maingroup_id ','subgroup_id','sort'));
     }
 
     public function actionView($subgroup_id)

@@ -51,19 +51,19 @@ use yii\helpers\Url;
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="<?= Url::to(
-                                                ['/shop/index', 'categoryid' => $categoryid, 
+                                                ['/shop/index', 'categoryid' => $maingroup_id, 
                                                 'subgroup_id'=>$subgroup_id, 'sort'=>'item'])  ?>">Имя</a></li>
                                             <li><a href="<?= Url::to(
-                                                ['/shop/index', 'categoryid' => $categoryid, 
+                                                ['/shop/index', 'categoryid' => $maingroup_id, 
                                                 'subgroup_id'=>$subgroup_id,'sort'=>'price'])  ?>">Цена</a></li>                                     
                                         </ul>
                                     </div>
                                   
                                     <span><a href="<?= Url::to(
-                                        ['/shop/index', 'categoryid' => $categoryid, 
+                                        ['/shop/index', 'categoryid' => $maingroup_id, 
                                         'subgroup_id'=>$subgroup_id, 'type_sort'=>'DESC', 'sort'=>$sort])  ?>"><i class="fa fa-arrow-up"></i></a></span>
                                     <span><a href="<?= Url::to(
-                                        ['/shop/index', 'categoryid' => $categoryid, 
+                                        ['/shop/index', 'categoryid' => $maingroup_id, 
                                         'subgroup_id'=>$subgroup_id, 'type_sort'=>'ASC', 'sort'=>$sort])  ?>"><i class="fa fa-arrow-down"></i></a></span>
                                 </div>
                             </div>
