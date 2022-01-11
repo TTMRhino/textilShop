@@ -64,9 +64,9 @@ use yii\helpers\Url;
                                                 <div class="single-product">
                                                     <!-- Product Image Start -->
                                                     <div class="pro-img">
-                                                        <a href="product.html">
-                                                            <img class="primary-img" src="/img/products/1.jpg" alt="<?=$item->item ?>">
-                                                            <img class="secondary-img" src="/img/products/2.jpg" alt="<?=$item->item ?>">
+                                                        <a href="<?= Url::to(['product/view', 'vendor' => $item->vendor]) ?>">
+                                                            <img class="primary-img" src="/img/products/<?=  $item->vendor ?>.jpg" alt="<?=$item->item ?>">
+                                                            <img class="secondary-img" src="/img/products/<?=  $item->vendor ?>.jpg" alt="<?=$item->item ?>">
                                                         </a>
                                                     </div>
                                                     <!-- Product Image End -->
@@ -79,7 +79,7 @@ use yii\helpers\Url;
                                                             <i class="fa fa-star"></i>
                                                             <i class="fa fa-star"></i>
                                                         </div>                                
-                                                        <h4><a href="product.html"><?= $item->item ?></a></h4>
+                                                        <h4><a href="<?= Url::to(['product/view', 'vendor' => $item->vendor]) ?>"><?= $item->item ?></a></h4>
                                                         <p><span class="price"><?= $item->price ?></span><del class="prev-price"><?= $item->old_price ?></del></p>
                                                         <div class="pro-actions">
                                                             <div class="actions-secondary">
@@ -115,9 +115,9 @@ use yii\helpers\Url;
                                         <div class="single-product">
                                             <!-- Product Image Start -->
                                             <div class="pro-img">
-                                                <a href="product.html">
-                                                    <img class="primary-img" src="/img/products/1.jpg" alt="<?= $item->item ?>">
-                                                    <img class="secondary-img" src="/img/products/2.jpg" alt="">
+                                                <a href="<?= Url::to(['product/view', 'vendor' => $item->vendor]) ?>">
+                                                    <img class="primary-img" src="/img/products/<?=  $item->vendor ?>.jpg" alt="<?= $item->item ?>">
+                                                    <img class="secondary-img" src="/img/products/<?=  $item->vendor ?>.jpg" alt="">
                                                 </a>
                                             </div>
                                             <!-- Product Image End -->
@@ -130,7 +130,7 @@ use yii\helpers\Url;
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>                                
-                                                <h4><a href="product.html"><?= $item->item ?></a></h4>
+                                                <h4><a href="<?= Url::to(['product/view', 'vendor' => $item->vendor]) ?>"><?= $item->item ?></a></h4>
                                                 <p><span class="price"><?= $item->price ?>р.</span><del class="prev-price"><?= $item->old_price ?>р.</del></p>
                                                 <p><?= $item->description ?></p>
                                                 <div class="pro-actions">

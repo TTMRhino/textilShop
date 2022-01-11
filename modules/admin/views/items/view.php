@@ -43,12 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=> function($model)
                 {
                     
-                    $imgVendor = $model->getImageVendor(); 
+                    $imgVendor = $model->vendor ;
                    
                     return "<div class='pro-img'>
-                            <a href='/img/products/l". $imgVendor . ".jpg' data-toggle='lightbox'>
+                            <a href='/img/products/". $imgVendor . ".jpg' data-toggle='lightbox'>
                                 <img style='height:70px;'class='img-fluid mb-2' 
-                                src= '/img/products/l". $imgVendor .".jpg' alt='white sample' data-gallery='gallery'/>
+                                src= '/img/products/". $imgVendor .".jpg' alt='white sample' data-gallery='gallery'/>
                             </a>
                           </div>";                          
                 }

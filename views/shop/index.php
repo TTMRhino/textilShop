@@ -86,8 +86,8 @@ use yii\helpers\Url;
                                                     <!-- Product Image Start -->
                                                     <div class="pro-img">
                                                         <a href="<?= Url::to(['product/view', 'vendor' => $item->vendor]) ?>">
-                                                            <img class="primary-img" src="/img/products/l<?= $item->getImageVendor() ?>.jpg" alt="<?=$item->item ?>">
-                                                            <!--<img class="secondary-img" src="/img/products/2.jpg" alt="<?=$item->item ?>">-->
+                                                            <img class="primary-img" src="/img/products/<?= $item->vendor ?>.jpg" alt="<?=$item->item ?>">
+                                                            
                                                         </a>
                                                     </div>
                                                     <!-- Product Image End -->
@@ -182,8 +182,8 @@ use yii\helpers\Url;
                                             <!-- Product Image Start -->
                                             <div class="pro-img">
                                                 <a href="<?= Url::to(['product/view', 'vendor' => $item->vendor]) ?>">
-                                                    <img class="primary-img" src="/img/products/l<?=  $item->getImageVendor() ?>.jpg" alt="<?= $item->item ?>">
-                                                    <!--<img class="secondary-img" src="/img/products/2.jpg" alt="">-->
+                                                    <img class="primary-img" src="/img/products/<?=  $item->vendor ?>.jpg" alt="<?= $item->item ?>">
+                                                   
                                                 </a>
                                             </div>
                                             <!-- Product Image End -->

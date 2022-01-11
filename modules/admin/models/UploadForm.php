@@ -106,16 +106,21 @@ class UploadForm extends Model
                 $new_item->item= $item->Наименование;
                 $new_item->code1c = $item->Ид;
 
-                $new_item->maingroup_id =  $main_groupID->id;
-                $new_item->subgroup_id = $sub_groupID->id;
+                $new_item->maingroup_id =  $main_groupID ? $main_groupID->id: '';
+                $new_item->subgroup_id = $sub_groupID ? $sub_groupID->id: '';
 
-                $new_item->maingroup_1c = $main_groupID->code1c;
-                $new_item->subgroup_1c = $sub_groupID->code1c;
+                $new_item->maingroup_1c = $main_groupID ? $main_groupID->code1c : '';
+                $new_item->subgroup_1c = $sub_groupID ? $sub_groupID->code1c :'';
 
                 $new_item->description = $item->Описание;                
                 $new_item->price = null;
                 $new_item->remains = null;
-                $new_item->vendor =  $item->Штрихкод;                
+
+                $patern = "/^[\x21-\x7E]{3}/i";
+                $string = $item->ЗначенияРеквизитов->ЗначениеРеквизита->Значение;
+                
+
+                $new_item->vendor =   "l".strval(intval(preg_replace($patern, '', $string)));
                 $new_item->save(false);
              }
 

@@ -12,7 +12,7 @@ use yii\helpers\Url;
                         <!-- Thumbnail Large Image start -->
                         <div class="tab-content">
                             <div id="thumb1" class="tab-pane active">
-                                <a data-fancybox="images" href="/img/products/l<?= $item->getVendorClear() ?>.jpg"><img src="/img/products/l<?= $item->getVendorClear() ?>.jpg" alt="product-view"></a>
+                                <a data-fancybox="images" href="/img/products/<?=  $item->vendor ?>.jpg"><img src="/img/products/<?=  $item->vendor ?>.jpg" alt="product-view"></a>
                             </div>
                            <!-- <div id="thumb2" class="tab-pane">
                                 <a data-fancybox="images" href="/img/products/2.jpg"><img src="/img/products/2.jpg" alt="product-view"></a>
@@ -42,9 +42,9 @@ use yii\helpers\Url;
                     <div class="col-lg-7">
                         <div class="thubnail-desc fix">
                             <h3 class="product-header"><?= $item->item ?></h3>
-                            <p class="">Группа: <?= $item->category->title ?></p>
+                            
 
-                            <p class="">Группа: <?= $item->category->title ?></p>
+                            <p class="">Группа: <?= is_null($item->category) ? '' : $item->category->title?></p>
                             
                             <p class="">Подгруппа: <?php if(empty($item->subCategory->title)){
                                  echo 'Пусто';
