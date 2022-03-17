@@ -2,14 +2,14 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=u28496_textileShop',
+    'dsn' => 'mysql:host=localhost;dbname=',
     'username' => 'root',
     'password' => 'root',
     'charset' => 'utf8',
    /* 'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=u28496_elektro74.ru',
-    'username' => 'u28496_apostall',
-    'password' => 'Postal_132',
+    'dsn' => 'mysql:host=localhost;dbname=',
+    'username' => '',
+    'password' => '',
     'charset' => 'utf8',*/
 
     // Schema cache options (for production environment)
